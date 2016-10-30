@@ -7,7 +7,10 @@ import urllib.request
 import json
 import validators
 from selenium.webdriver.common.keys import Keys
+from pyvirtualdisplay import Display    #install xvfb and python module "pyvirtualdisplay"
 
+newdisp=Display(visible=0, size=(200,200))  #this will hide the display
+newdisp.start()
 
 
 def get_soup(url,header):
