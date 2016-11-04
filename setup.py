@@ -1,8 +1,8 @@
 import subprocess
 
 installs = [
-        "pip3 install bs4",
-        "pip3 install selenium"
+        "pip install bs4",
+        "pip install selenium"
     ]
 print("Wait for the installations, Its in progress..!!!")
 for install in installs:
