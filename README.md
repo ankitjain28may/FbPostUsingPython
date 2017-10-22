@@ -8,7 +8,7 @@
 
 * `$ python setup.py` or `$ python3 setup.py`
 
-* Download [PhantonJS](http://phantomjs.org/download.html) and copy the exe file into the same folder as your repository
+* Download [PhantomJS](http://phantomjs.org/download.html) and copy the exe file into the same folder as your repository
 
 After the installation, open terminal at the root folder
 
