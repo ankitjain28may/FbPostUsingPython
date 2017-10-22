@@ -14,8 +14,6 @@ After the installation, open terminal at the root folder
 
 Run `python fb.py` or `python3 fb.py` to post status from terminal or cmd.
 
-Note:- Use Mozilla Firefox V40.0+ to make this script work for you.
-
 
 
 ## Some Useful Installation Tips ( Ubuntu )
