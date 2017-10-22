@@ -1,5 +1,5 @@
 import time
-import platform
+import os
 import getpass
 import selenium
 from selenium import webdriver
@@ -11,11 +11,11 @@ from selenium.webdriver.phantomjs.webdriver import WebDriver
 def get_title(driver):
     html_page = driver.page_source
     soup = BeautifulSoup(html_page,'html.parser')
-    print(soup.title.string+"\n")
+    # print(soup.title.string+"\n")
     return soup.title.string
 
-if platform.system() == 'Windows':
-    pathr = 'C:\\Program Files\\phantomjs-2.1.1-windows\\bin\\phantomjs.exe'
+if os.name == 'nt':
+    pathr = 'phantomjs.exe'
 else:
     pathr = './phantomjs'
 driver = webdriver.PhantomJS(pathr, service_args=['--ignore-ssl-errors=true', '--ssl-protocol=any'])
@@ -23,7 +23,7 @@ url = "https://mbasic.facebook.com/"
 
 while True:
     driver.get(url)
-    time.sleep(2)
+    # time.sleep(2)
     get_title(driver)
 
     eMail = input("Enter your Email Id or Mobile No. to Login\n")
@@ -36,7 +36,7 @@ while True:
 
     login = driver.find_element_by_name("login")
     login.click()
-    time.sleep(5)
+    # time.sleep(5)
     
 
     if get_title(driver) != "Log in to Facebook | Facebook":
@@ -50,7 +50,7 @@ while True:
         status.send_keys(pp)
         button = driver.find_element_by_name("view_post")
         button.click()
-        time.sleep(5)
+        # time.sleep(5)
         print("Your Status : '"+pp+"' has been uploaded!\n")
         driver.quit()
         break
