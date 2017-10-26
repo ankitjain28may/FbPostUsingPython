@@ -1,25 +1,29 @@
 import time
+import os
 import getpass
 import selenium
 from selenium import webdriver
 from bs4 import BeautifulSoup
 from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+from selenium.webdriver.phantomjs.webdriver import WebDriver
 
 
 def get_title(driver):
     html_page = driver.page_source
     soup = BeautifulSoup(html_page,'html.parser')
-    print(soup.title.string+"\n")
+    # print(soup.title.string+"\n")
     return soup.title.string
 
-binary = FirefoxBinary('C:\Program Files (x86)\Mozilla Firefox\Firefox.exe')
-driver = webdriver.Firefox(firefox_binary=binary)
-url = "https://facebook.com"
+if os.name == 'nt':
+    pathr = 'phantomjs.exe'
+else:
+    pathr = './phantomjs'
+driver = webdriver.PhantomJS(pathr, service_args=['--ignore-ssl-errors=true', '--ssl-protocol=any'])
+url = "https://mbasic.facebook.com/"
 
 while True:
     driver.get(url)
-    time.sleep(2)
+    # time.sleep(2)
     get_title(driver)
 
     eMail = input("Enter your Email Id or Mobile No. to Login\n")
@@ -30,21 +34,23 @@ while True:
     password = driver.find_element_by_name("pass")
     password.send_keys(pAss)
 
-    login = driver.find_element_by_css_selector("#u_0_l")
+    login = driver.find_element_by_name("login")
     login.click()
-    time.sleep(5)
+    # time.sleep(5)
+    
 
     if get_title(driver) != "Log in to Facebook | Facebook":
         print("You are logged in now\n")
+        #afterlogin the url changes so we need to set the url again
+        driver.get(url)
 
         pp = input("Enter your Status\n")
-        # status = driver.find_element_by_xpath('//textarea[@class="uiTextareaAutogrow _3en1" or @class="uiTextareaAutogrow _3en1 _480e"]')
-        status = driver.find_element_by_xpath('//textarea[contains(@class, "uiTextareaAutogrow")]')
+        status = driver.find_element_by_name("xc_message")
 
         status.send_keys(pp)
-        button = driver.find_element_by_xpath('//div[@class="clearfix"]/div[contains(@class, "rfloat")]/div/button[@type="submit" and @value="1"]')
+        button = driver.find_element_by_name("view_post")
         button.click()
-        time.sleep(5)
+        # time.sleep(5)
         print("Your Status : '"+pp+"' has been uploaded!\n")
         driver.quit()
         break
